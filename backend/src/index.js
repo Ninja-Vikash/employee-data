@@ -16,11 +16,25 @@ app.get("/api/employees", async (_, res) => {
     res.send(data);
 });
 
+app.get("/api/employee/:employeeId", async (req, res) => {
+    const { employeeId } = req.params;
+
+    try {
+        const response = await EmployeeModel.findOne({ _id: employeeId });
+        res.send(response);
+    } catch (error) {
+        console.log("Error while fetching employee", error);
+        throw Error("Error in fetching employee", error);
+    }
+});
+
 app.post("/api/create", async (req, res) => {
     const { avatarUrl, name, role, experience, gender, location } = req.body;
 
     try {
-        if ([name, avatarUrl, role, gender, location, experience].includes("")) {
+        if (
+            [name, avatarUrl, role, gender, location, experience].includes("")
+        ) {
             res.send("Please fill all the boxes");
             throw Error("Please fill all the boxes");
         }
@@ -39,6 +53,36 @@ app.post("/api/create", async (req, res) => {
         });
     } catch (error) {
         console.log("Error in creating document on database", error);
+    }
+});
+
+app.put("/api/update/:employeeId", async (req, res) => {
+    const { employeeId } = req.params;
+    const newData = req.body;
+
+    try {
+        const response = await EmployeeModel.findOneAndUpdate(
+            { _id: employeeId },
+            { $set: newData },
+            { new: true }
+        );
+
+        res.send(response);
+    } catch (error) {
+        console.log("Error while updating employee", error);
+        res.send("Error while updating employee", error);
+    }
+});
+
+app.delete("/api/delete/:employeeId", async (req, res) => {
+    const { employeeId } = req.params;
+
+    try {
+        const response = await EmployeeModel.findOneAndDelete(employeeId);
+        res.body(response);
+    } catch (error) {
+        console.log("Error on deleting employee");
+        res.send("Error on deleting employee");
     }
 });
 
