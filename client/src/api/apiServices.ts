@@ -1,8 +1,9 @@
 import axios from "axios";
+import { EmployeeData, EmployeeId } from "../types/employee.types";
 
-export const createEmployeeApi = async (data) => {
+export const createEmployeeApi = async (data: EmployeeData) => {
     const response = await axios.post("/api/create", data, {
-        "Content-Type": "application/json",
+        headers: { "Content-Type": "application/json" },
     });
     return response;
 };
@@ -16,7 +17,7 @@ export const getEmployeesApi = async () => {
     }
 };
 
-export const getEmployeeApi = async (employeeId) => {
+export const getEmployeeApi = async (employeeId: EmployeeId) => {
     try {
         const response = await axios.get(`/api/employee/${employeeId}`);
         return response.data;
@@ -25,17 +26,20 @@ export const getEmployeeApi = async (employeeId) => {
     }
 };
 
-export const deleteEmployeeApi = async (employeeId) => {
+export const deleteEmployeeApi = async (employeeId: EmployeeId) => {
     const response = await axios.delete(`/api/delete/${employeeId}`);
     return response;
 };
 
-export const updateEmployeeApi = async (employeeId, newData) => {
+export const updateEmployeeApi = async (
+    employeeId: EmployeeId,
+    newData: EmployeeData
+) => {
     try {
         const response = axios.put(`/api/update/${employeeId}`, newData, {
-            "Content-Type": "application/json",
+            headers: { "Content-Type": "application/json" },
         });
-        return response.data;
+        return response;
     } catch (error) {
         console.log("Error while updating employee data", error);
     }

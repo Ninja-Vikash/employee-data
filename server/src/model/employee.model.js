@@ -5,7 +5,7 @@ const employeeSchema = mongoose.Schema({
         type: String,
         require: true,
     },
-    url: String,
+    avatarUrl: String,
     role: {
         type: String,
         required: true,

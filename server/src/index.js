@@ -44,7 +44,7 @@ app.post("/api/create", async (req, res) => {
         }
 
         await EmployeeModel.create({
-            url: avatarUrl,
+            avatarUrl,
             name,
             role,
             gender,
