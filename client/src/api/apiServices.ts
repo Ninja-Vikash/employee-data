@@ -2,7 +2,7 @@ import axios from "axios";
 import { EmployeeData, EmployeeId } from "../types/employee.types";
 
 export const createEmployeeApi = async (data: EmployeeData) => {
-    const response = await axios.post("/api/create", data, {
+    const response = await axios.post("/api/employee/create", data, {
         headers: { "Content-Type": "application/json" },
     });
     return response;
@@ -27,7 +27,7 @@ export const getEmployeeApi = async (employeeId: EmployeeId) => {
 };
 
 export const deleteEmployeeApi = async (employeeId: EmployeeId) => {
-    const response = await axios.delete(`/api/delete/${employeeId}`);
+    const response = await axios.delete(`/api/employee/delete/${employeeId}`);
     return response;
 };
 
@@ -36,7 +36,7 @@ export const updateEmployeeApi = async (
     newData: EmployeeData
 ) => {
     try {
-        const response = axios.put(`/api/update/${employeeId}`, newData, {
+        const response = axios.patch(`/api/employee/update/${employeeId}`, newData, {
             headers: { "Content-Type": "application/json" },
         });
         return response;
