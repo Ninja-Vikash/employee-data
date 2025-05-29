@@ -10,6 +10,7 @@ export const deleteEmployee = async (req, res) => {
 
         if (!isEmployeeExist) {
             res.send("Employee not exist")
+            return
         }
 
         const response = await EmployeeModel.findOneAndDelete({

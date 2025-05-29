@@ -11,6 +11,7 @@ export const updateEmployee = async (req, res) => {
 
         if (!existedEmployee) {
             res.send("Not existed employee");
+            return
         }
 
         const response = await EmployeeModel.findOneAndUpdate(
