@@ -7,6 +7,8 @@ export interface EmployeeData {
     gender: Gender;
     experience: number;
     location: string;
+    createdAt: Date | null;
+    updatedAt: Date | null;
 }
 
 export type EmployeeId = string | undefined;
