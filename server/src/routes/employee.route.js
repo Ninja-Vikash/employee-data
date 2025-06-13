@@ -9,12 +9,12 @@ const router = Router();
 
 router.get("/employees", getEmployees);
 
-router.get("/employee/:employeeId", getEmployee);
+router.get("/employee/:_id", getEmployee);
 
 router.post("/employee/create", createEmployee);
 
-router.delete("/employee/delete/:employeeId", deleteEmployee);
+router.delete("/employee/:_id/delete", deleteEmployee);
 
-router.patch("/employee/update/:employeeId", updateEmployee);
+router.patch("/employee/:_id/update", updateEmployee);
 
 export default router;

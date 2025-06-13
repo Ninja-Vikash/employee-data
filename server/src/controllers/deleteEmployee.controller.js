@@ -1,24 +1,19 @@
 import { EmployeeModel } from "../model/employee.model.js";
 
 export const deleteEmployee = async (req, res) => {
-    const { employeeId } = req.params;
+    const { _id } = req.params;
 
     try {
-        const isEmployeeExist = await EmployeeModel.findOne({
-            _id: employeeId,
-        });
+        const employee = await EmployeeModel.findOne({ _id });
 
-        if (!isEmployeeExist) {
-            res.send("Employee not exist")
-            return
+        if (!employee) {
+            throw new Error("Employee doesn't exist in the database!");
         }
 
-        const response = await EmployeeModel.findOneAndDelete({
-            _id: employeeId,
-        });
-        res.json({ status: 200, message: "employee deleted", data: response });
+        const response = await EmployeeModel.findOneAndDelete({ _id });
+        
+        return res.json({ status: 200, data: response });
     } catch (error) {
-        console.log("Error on deleting employee");
-        res.send("Error on deleting employee");
+        throw error;
     }
 };

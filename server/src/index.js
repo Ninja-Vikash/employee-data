@@ -6,14 +6,14 @@ dotenv.config({
     path: "./env",
 });
 
+const PORT = process.env.PORT || 8000;
+
 connectDB()
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(
-                `App is running on the http://localhost:${process.env.PORT}`
-            );
+        app.listen(PORT, () => {
+            console.log(`App is running on the http://localhost:${PORT}`);
         });
     })
-    .catch((error) => {
-        console.log(`Error in MONGODB connection ${error}`);
+    .catch((err) => {
+        console.error(`Error in mongo connection: ${err}`);
     });

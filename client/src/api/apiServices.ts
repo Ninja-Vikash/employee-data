@@ -27,7 +27,7 @@ export const getEmployeeApi = async (employeeId: EmployeeId) => {
 };
 
 export const deleteEmployeeApi = async (employeeId: EmployeeId) => {
-    const response = await axios.delete(`/api/employee/delete/${employeeId}`);
+    const response = await axios.delete(`/api/employee/${employeeId}/delete`);
     return response;
 };
 
@@ -36,7 +36,7 @@ export const updateEmployeeApi = async (
     newData: EmployeeData
 ) => {
     try {
-        const response = axios.patch(`/api/employee/update/${employeeId}`, newData, {
+        const response = axios.patch(`/api/employee/${employeeId}/update`, newData, {
             headers: { "Content-Type": "application/json" },
         });
         return response;

@@ -1,31 +1,30 @@
 import { EmployeeModel } from "../model/employee.model.js";
 
 export const updateEmployee = async (req, res) => {
-    const { employeeId } = req.params;
+    const { _id } = req.params;
     const newData = req.body;
 
     try {
-        const existedEmployee = await EmployeeModel.findOne({
-            _id: employeeId,
-        });
+        const employee = await EmployeeModel.findOne({ _id });
 
-        if (!existedEmployee) {
-            res.send("Not existed employee");
-            return
+        if (!employee) {
+            throw new Error(
+                `Employee doesn't exist with the following empId: ${_id}`
+            );
         }
 
         const response = await EmployeeModel.findOneAndUpdate(
-            { _id: employeeId },
+            { _id },
             { $set: newData },
             { new: true }
         );
 
-        res.json({
+        return res.json({
             message: "employee is updated",
             data: response,
         });
     } catch (error) {
-        console.log("Error while updating employee", error);
-        res.send("Error while updating employee");
+        console.error(`Error while updating employee ${error}`);
+        throw error;
     }
 };

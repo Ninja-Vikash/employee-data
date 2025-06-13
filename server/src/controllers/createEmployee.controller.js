@@ -7,13 +7,13 @@ export const createEmployee = async (req, res) => {
         if (
             [name, avatarUrl, role, gender, location, experience].includes("")
         ) {
-            res.send("Please fill all the boxes");
-            throw Error("Please fill all the boxes");
+            res.send("Please fill all keys")
+            throw new Error("Please fill all the boxes");
         }
 
         if (!avatarUrl.includes("https")) {
-            res.send("Enter a valid url");
-            throw Error("Enter a valid url");
+            res.send("Please enter a valid url")
+            throw new Error("Please enter a valid url");
         }
 
         const newEmployee = new EmployeeModel({
@@ -27,12 +27,13 @@ export const createEmployee = async (req, res) => {
 
         await newEmployee.save();
 
-        res.json({
+        return res.json({
             status: 201,
             message: "employee created!",
             data: newEmployee,
         });
     } catch (error) {
-        console.log("Error in creating document on database", error);
+        console.error(`Error while creating an employee: ${error}`);
+        throw error
     }
 };
